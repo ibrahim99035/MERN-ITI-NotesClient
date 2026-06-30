@@ -8,6 +8,7 @@ import NoteCreate from "./pages/noteCreate";
 import NoteUpdate from "./pages/noteUpdate";
 import NoteDetails from "./pages/noteDetails";
 import Profile from "./pages/profile";
+import SwaggerDocs from "./pages/swagger";
 import Home from "./pages/home";
 
 import Header from "./components/main/header";
@@ -29,6 +30,7 @@ export default function App() {
             <Route path="/notes/:noteId/edit" element={<NoteUpdate />} />
             <Route path="/notes/:noteId" element={<NoteDetails />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/api-docs" element={<SwaggerDocs />} />
           </Route>
         </Routes>
       <Footer />
