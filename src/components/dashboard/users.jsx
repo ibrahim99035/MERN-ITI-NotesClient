@@ -7,7 +7,7 @@ export default function DashboardUsers({ data, isLoading, isError, error, refetc
   if (isLoading) return <Loader label="Loading users..." />;
   if (isError) return <ErrorState status={error?.response?.status} onRetry={refetch} />;
 
-  const users = data?.data?.users || data?.users || [];
+  const users = Array.isArray(data?.data) ? data.data : [];
   if (users.length === 0) return <EmptyState title="No users found" />;
 
   return (

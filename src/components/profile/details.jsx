@@ -1,12 +1,32 @@
-import { useState } from "react";
-import { useProfile } from "../../hooks/useProfile";
+import { useState, useRef } from "react";
+import { useProfile, useUploadProfileImage, useRemoveProfileImage } from "../../hooks/useProfile";
 import Modal from "../common/modal";
 import ProfileUpdate from "./update";
 import ChangePassword from "./changePassword";
 
 export default function ProfileDetails() {
   const { data, isLoading, isError, error, refetch } = useProfile();
-  const [activeModal, setActiveModal] = useState(null); // "edit" | "password" | null
+  const { mutate: uploadImage, isPending: isUploading } = useUploadProfileImage();
+  const { mutate: removeImage, isPending: isRemoving } = useRemoveProfileImage();
+  const [activeModal, setActiveModal] = useState(null);
+  const fileInputRef = useRef(null);
+
+  const handleUpload = (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const formData = new FormData();
+    formData.append("profileImage", file);
+    uploadImage(formData, {
+      onSuccess: () => refetch(),
+    });
+    e.target.value = "";
+  };
+
+  const handleRemove = () => {
+    removeImage(undefined, {
+      onSuccess: () => refetch(),
+    });
+  };
 
   if (isLoading) {
     return (
@@ -50,6 +70,33 @@ export default function ProfileDetails() {
               </div>
             )}
           </div>
+
+          <div className="flex flex-wrap gap-2">
+            <button
+              onClick={() => fileInputRef.current?.click()}
+              disabled={isUploading}
+              className="text-[10px] font-semibold uppercase tracking-widest bg-black dark:bg-white text-white dark:text-black px-3 py-1.5 hover:bg-[#FFC400] hover:text-black transition-colors disabled:opacity-50"
+            >
+              {isUploading ? "Uploading..." : "Upload photo"}
+            </button>
+            {user.profileImage?.url && (
+              <button
+                onClick={handleRemove}
+                disabled={isRemoving}
+                className="text-[10px] font-semibold uppercase tracking-widest border border-black dark:border-white px-3 py-1.5 text-black dark:text-white hover:bg-red-500 hover:text-white hover:border-red-500 transition-colors disabled:opacity-50"
+              >
+                {isRemoving ? "Removing..." : "Remove"}
+              </button>
+            )}
+          </div>
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="image/*"
+            onChange={handleUpload}
+            className="hidden"
+          />
+
           <div>
             <p className="text-lg font-semibold text-black dark:text-white">{user.name}</p>
             <p className="text-sm text-black/50 dark:text-white/50">{user.email}</p>

@@ -16,7 +16,7 @@ export default function NoteDetails() {
   const { data, isLoading, isError, error, refetch } = useNote(noteId);
   const { mutate: deleteNote, isPending: isDeleting } = useDeleteNote();
 
-  const note = data?.data?.note;
+  const note = data?.data;
 
   const handleDelete = () => {
     deleteNote(noteId, {

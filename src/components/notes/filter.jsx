@@ -67,7 +67,7 @@ export default function Filter({ filters, onFilterChange }) {
         >
           <option value="">All</option>
           {CATEGORIES.map((c) => (
-            <option key={c} value={c.toLowerCase()}>
+            <option key={c} value={c}>
               {c}
             </option>
           ))}

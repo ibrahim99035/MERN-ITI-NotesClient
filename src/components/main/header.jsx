@@ -29,7 +29,6 @@ export default function Header() {
             [
               ["Dashboard", "/dashboard"],
               ["Notes", "/notes"],
-              ["API Docs", "/api-docs"],
               ["Profile", "/profile"],
             ].map(([label, path]) => (
               <Link

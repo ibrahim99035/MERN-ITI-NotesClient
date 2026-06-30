@@ -10,7 +10,7 @@ export default function NoteUpdate() {
   const { data, isLoading, isError, error, refetch } = useNote(noteId);
   const { mutate, isPending } = useUpdateNote();
 
-  const note = data?.data?.note;
+  const note = data?.data;
 
   const onSubmit = (formData, { setError }) => {
     mutate(

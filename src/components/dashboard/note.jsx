@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { format } from "date-fns";
 import Loader from "../common/loader";
 import ErrorState from "../common/errorState";
@@ -36,13 +37,16 @@ export default function DashboardNotes({ data, isLoading, isError, error, refetc
           {notes.map((note) => (
             <tr key={note._id} className="border-b border-black/5 dark:border-white/5 hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
               <td className="py-3 px-3">
-                <span className="text-sm font-medium text-black dark:text-white">
+                <Link
+                  to={`/notes/${note._id}`}
+                  className="text-sm font-medium text-black dark:text-white hover:text-[#FFC400] transition-colors"
+                >
                   {note.isPinned && <span className="text-[#FFC400] mr-1">•</span>}
                   {note.title}
-                </span>
+                </Link>
               </td>
               <td className="py-3 px-3 text-xs text-black/50 dark:text-white/50">
-                {note.user?.name || "—"}
+                {note.userId?.name || "—"}
               </td>
               <td className="py-3 px-3">
                 <span
