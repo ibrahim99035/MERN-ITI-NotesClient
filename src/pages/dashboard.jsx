@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../store/authSelectors";
 import { useNotes } from "../hooks/useNotes";
@@ -14,6 +14,7 @@ import ErrorState from "../components/common/errorState";
 import EmptyState from "../components/common/emptyState";
 
 export default function Dashboard() {
+  useEffect(() => { document.title = "Dashboard — Notes" }, []);
   const user = useSelector(selectCurrentUser);
   const isAdmin = user?.role === "admin";
   const [activeTab, setActiveTab] = useState("overview");

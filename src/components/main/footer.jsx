@@ -1,3 +1,8 @@
+const API_DOCS_URL =
+  import.meta.env.VITE_API_DOCS_URL ||
+  import.meta.env.VITE_API_URL?.replace("/api/v1", "/api-docs") ||
+  "http://localhost:5000/api-docs";
+
 export default function Footer() {
   return (
     <footer className="border-t border-black/10 dark:border-white/10 bg-white dark:bg-[#121212] mt-auto">
@@ -21,7 +26,7 @@ export default function Footer() {
           <ul className="space-y-2 text-sm">
             <li>
               <a
-                href="http://localhost:5000/api-docs"
+                href={API_DOCS_URL}
                 target="_blank"
                 rel="noreferrer"
                 className="text-black/70 dark:text-white/70 hover:text-[#FFC400] transition-colors"

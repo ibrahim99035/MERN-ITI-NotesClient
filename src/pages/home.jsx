@@ -1,14 +1,8 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-
+import { useEffect } from 'react'
 import Hero from '../components/main/hero'
 
-const home = () => {
-  return (
-    <>
-      <Hero />
-    </>
-  )
-}
+export default function Home() {
+  useEffect(() => { document.title = "Notes" }, [])
 
-export default home
+  return <Hero />
+}

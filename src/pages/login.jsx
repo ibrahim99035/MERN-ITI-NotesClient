@@ -1,7 +1,8 @@
-import React from 'react'
+import { useEffect } from 'react'
 import LoginForm from '../components/auth/loginForm'
 
-export default function login() {
+export default function Login() {
+  useEffect(() => { document.title = "Login — Notes" }, [])
   return (
     <div className="min-h-screen flex items-center justify-center bg-white dark:bg-[#121212] px-4 py-12">
       <div className="w-full max-w-md">

@@ -1,8 +1,10 @@
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import NoteForm from "../components/notes/noteForm";
 import { useCreateNote } from "../hooks/useNotes";
 
 export default function NoteCreate() {
+  useEffect(() => { document.title = "New Note — Notes" }, []);
   const navigate = useNavigate();
   const { mutate, isPending } = useCreateNote();
 

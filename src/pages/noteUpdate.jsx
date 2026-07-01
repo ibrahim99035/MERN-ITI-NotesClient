@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useNote, useUpdateNote } from "../hooks/useNotes";
 import NoteForm from "../components/notes/noteForm";
@@ -11,6 +12,10 @@ export default function NoteUpdate() {
   const { mutate, isPending } = useUpdateNote();
 
   const note = data?.data;
+
+  useEffect(() => {
+    document.title = note ? `Edit: ${note.title} — Notes` : "Edit Note — Notes";
+  }, [note]);
 
   const onSubmit = (formData, { setError }) => {
     mutate(

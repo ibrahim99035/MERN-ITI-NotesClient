@@ -5,7 +5,7 @@ import NoteDeleteConfirm from "../components/notes/noteDeleteConfirm";
 import Loader from "../components/common/loader";
 import ErrorState from "../components/common/errorState";
 import Modal from "../components/common/modal";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { HiOutlineArrowLeft } from "react-icons/hi";
 
@@ -17,6 +17,10 @@ export default function NoteDetails() {
   const { mutate: deleteNote, isPending: isDeleting } = useDeleteNote();
 
   const note = data?.data;
+
+  useEffect(() => {
+    document.title = note ? `${note.title} — Notes` : "Note — Notes";
+  }, [note]);
 
   const handleDelete = () => {
     deleteNote(noteId, {

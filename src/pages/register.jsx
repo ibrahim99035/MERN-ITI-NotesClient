@@ -1,7 +1,8 @@
-import React from 'react'
+import { useEffect } from 'react'
 import RegisterForm from '../components/auth/registerForm'
 
-export default function register() {
+export default function Register() {
+  useEffect(() => { document.title = "Register — Notes" }, [])
   return (
     <div className="min-h-screen flex items-center justify-center bg-white dark:bg-[#121212] px-4 py-12">
       <div className="w-full max-w-md">
