@@ -28,9 +28,9 @@ export default function Header() {
   const closeMenu = () => setMenuOpen(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-black/10 dark:border-white/10 bg-white/95 dark:bg-[#121212]/95 backdrop-blur-sm">
+    <header className="sticky top-0 z-50 border-b border-black/10 dark:border-white/10 bg-white/95 dark:bg-[#121212]/95 backdrop-blur-sm overflow-x-hidden">
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-2 group">
+        <Link to="/" className="flex items-center gap-2 group shrink-0">
           <span className="w-2.5 h-2.5 bg-[#FFC400] inline-block" />
           <span className="font-bold text-lg tracking-tight text-black dark:text-white">
             NOTES<span className="text-[#FFC400]">.</span>
@@ -49,7 +49,7 @@ export default function Header() {
           ))}
         </nav>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-1 sm:gap-4 shrink-0">
           <ThemeToggle />
 
           <button
@@ -81,7 +81,8 @@ export default function Header() {
       </div>
 
       {menuOpen && (
-        <div className="md:hidden border-t border-black/10 dark:border-white/10 bg-white dark:bg-[#121212] px-6 py-4 space-y-3">
+        <div className="md:hidden border-t border-black/10 dark:border-white/10 bg-white dark:bg-[#121212]">
+          <div className="max-w-6xl mx-auto px-6 py-4 space-y-3">
           {navLinks(isAuthenticated).map(([label, path]) => (
             <Link
               key={path}
@@ -109,6 +110,7 @@ export default function Header() {
               Log in
             </Link>
           )}
+          </div>
         </div>
       )}
     </header>
