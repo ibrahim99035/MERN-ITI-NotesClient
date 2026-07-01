@@ -1,6 +1,13 @@
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { selectIsAuthenticated } from "../../store/authSelectors";
+import { usePinnedNote } from "../../hooks/useNotes";
 
 export default function Hero() {
+  const isAuthenticated = useSelector(selectIsAuthenticated);
+  const { data: pinnedRes } = usePinnedNote();
+  const pinned = pinnedRes?.data;
+
   return (
     <section className="relative overflow-hidden bg-white dark:bg-[#121212] border-b border-black/10 dark:border-white/10">
       <div className="max-w-6xl mx-auto px-6 py-20 md:py-28 grid md:grid-cols-2 gap-12 items-center">
@@ -19,18 +26,37 @@ export default function Hero() {
             off.
           </p>
           <div className="flex items-center gap-4">
-            <Link
-              to="/register"
-              className="text-xs font-semibold uppercase tracking-widest bg-black dark:bg-white text-white dark:text-black px-6 py-3 hover:bg-[#FFC400] hover:text-black transition-colors"
-            >
-              Get started
-            </Link>
-            <Link
-              to="/login"
-              className="text-xs font-semibold uppercase tracking-widest text-black dark:text-white border-b-2 border-transparent hover:border-[#FFC400] pb-1 transition-colors"
-            >
-              Log in
-            </Link>
+            {isAuthenticated ? (
+              <>
+                <Link
+                  to="/profile"
+                  className="text-xs font-semibold uppercase tracking-widest bg-black dark:bg-white text-white dark:text-black px-6 py-3 hover:bg-[#FFC400] hover:text-black transition-colors"
+                >
+                  Profile
+                </Link>
+                <Link
+                  to="/notes"
+                  className="text-xs font-semibold uppercase tracking-widest text-black dark:text-white border-b-2 border-transparent hover:border-[#FFC400] pb-1 transition-colors"
+                >
+                  Notes
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link
+                  to="/register"
+                  className="text-xs font-semibold uppercase tracking-widest bg-black dark:bg-white text-white dark:text-black px-6 py-3 hover:bg-[#FFC400] hover:text-black transition-colors"
+                >
+                  Get started
+                </Link>
+                <Link
+                  to="/login"
+                  className="text-xs font-semibold uppercase tracking-widest text-black dark:text-white border-b-2 border-transparent hover:border-[#FFC400] pb-1 transition-colors"
+                >
+                  Log in
+                </Link>
+              </>
+            )}
           </div>
         </div>
 
@@ -40,10 +66,10 @@ export default function Hero() {
 
             <div className="absolute inset-0 bg-white dark:bg-[#1c1c1c] border border-black/10 dark:border-white/10 rotate-[6deg] shadow-md p-5">
               <p className="text-[11px] font-semibold uppercase tracking-widest text-black/30 dark:text-white/30 mb-2">
-                Work
+                {pinned ? pinned.category : "Work"}
               </p>
-              <p className="text-sm text-black/70 dark:text-white/70 leading-snug">
-                Finish API docs before standup. Check the pagination params.
+              <p className="text-sm text-black/70 dark:text-white/70 leading-snug line-clamp-4">
+                {pinned ? pinned.content : "Finish API docs before standup. Check the pagination params."}
               </p>
             </div>
 
@@ -55,7 +81,7 @@ export default function Hero() {
                 <span className="w-2 h-2 bg-black/70 inline-block" />
               </div>
               <p className="text-sm font-semibold text-black leading-snug">
-                Ship the notes app demo by Thursday.
+                {pinned ? pinned.title : "Ship the notes app demo by Thursday."}
               </p>
             </div>
           </div>

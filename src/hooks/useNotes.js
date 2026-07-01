@@ -3,6 +3,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   getNotes,
   getNoteById,
+  getPinnedNote,
   createNote,
   updateNote,
   deleteNote,
@@ -26,7 +27,13 @@ export const useNote = (noteId) =>
   useQuery({
     queryKey: notesKeys.detail(noteId),
     queryFn: () => getNoteById(noteId),
-    enabled: !!noteId, // don't fire until noteId actually exists
+    enabled: !!noteId,
+  });
+
+export const usePinnedNote = () =>
+  useQuery({
+    queryKey: ["notes", "pinned"],
+    queryFn: getPinnedNote,
   });
 
 export const useCreateNote = () => {

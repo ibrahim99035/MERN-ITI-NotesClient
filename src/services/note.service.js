@@ -7,6 +7,9 @@ export const getNotes = (params) =>
 export const getNoteById = (noteId) =>
   api.get(`/notes/${noteId}`).then((res) => res.data);
 
+export const getPinnedNote = () =>
+  api.get("/notes/pinned").then((res) => res.data);
+
 export const createNote = (data) =>
   api.post("/notes", data).then((res) => res.data);
 
